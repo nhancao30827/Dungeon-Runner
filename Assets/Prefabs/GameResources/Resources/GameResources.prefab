@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4980640992201581896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6177297126674792976}
+  - component: {fileID: 4073299076792285008}
+  m_Layer: 0
+  m_Name: GameResources
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6177297126674792976
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4980640992201581896}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.94227636, y: 0.7072556, z: 0.016821023}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4073299076792285008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4980640992201581896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a11e81138e4c624ab82e36d928e7add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomNodeTypeList: {fileID: 11400000, guid: fb7203ba739cd904782b4ab640b84a92, type: 2}
+  currentPlayerSO: {fileID: 11400000, guid: d63d8a4a987a28747ae4da222cb496fd, type: 2}
+  soundsMasterMixerGroup: {fileID: -4734643798044506327, guid: 2ac509b551addfb48950fbdc0d9cefb4, type: 2}
+  doorOpenCloseSoundEffect: {fileID: 11400000, guid: 3b8061e281bd2e743ad1abd25fd8a143, type: 2}
+  dimmedMaterial: {fileID: 2100000, guid: fd5ae752e16da36428c7ae98c49dc19e, type: 2}
+  litMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  variableLitShader: {fileID: -6465566751694194690, guid: 4ba7b97ebdd457646b9d143848bb61b9, type: 3}
+  enemyUnwalkableCollisionTilesArray:
+  - {fileID: 11400000, guid: 37e2c9e0227bfbc409cd632b9bd0c81f, type: 2}
+  - {fileID: 11400000, guid: 98f177f8276c38b429705e6720c48672, type: 2}
+  preferredEnemyPathTile: {fileID: 11400000, guid: 3ce5fb260af53d24887b55c3d50041e2, type: 2}
+  heartPrefab: {fileID: 2204958182748218928, guid: 13bfe46cf87f12b4ba9f947949028253, type: 3}
