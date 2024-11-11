@@ -26,3 +26,5 @@ MonoBehaviour:
     enemyHealthAmount: 65
   - levelSO: {fileID: 11400000, guid: 13103dadfb8273a49a02bbba2babd7f5, type: 2}
     enemyHealthAmount: 70
+  - levelSO: {fileID: 11400000, guid: 332c037b328bc314ebebb3f5aaa1cf40, type: 2}
+    enemyHealthAmount: 70

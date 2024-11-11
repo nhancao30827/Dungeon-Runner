@@ -213,8 +213,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
     }
 
-    
-
     private void PlayDungeonLevel(int dungeonLeveListIndex)
     {
 
@@ -268,7 +266,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         previousGameState = GameState.gameWon;
 
-        //HighScore.Instance.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
+        countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
 
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
 
@@ -287,6 +285,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         //HighScore.Instance.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
         //yield return new WaitForSeconds(1f);
+
+        //countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
 
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
 

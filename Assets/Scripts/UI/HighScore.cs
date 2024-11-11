@@ -1,36 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
 
-public class HighScore : SingletonMonobehaviour<HighScore>
+public class HighScore : MonoBehaviour
 {
     public TextMeshProUGUI highScoreText;
 
     // Dictionary now stores player names as keys and times as values
     private Dictionary<string, int> highScoresDict = new Dictionary<string, int>();
 
-    protected override void Awake()
+    private void Start()
     {
-        base.Awake();
-        Debug.Log(highScoresDict.Count);
-        LoadHighScores();
-        UpdateHighScores("Hien tai", 120); // Load high scores from PlayerPrefs when the game starts
+        LoadHighScoresFromFile();
         ShowHighScore();
     }
 
+    /// <summary>
+    /// Displays the high scores on the UI.
+    /// </summary>
     private void ShowHighScore()
     {
         // Sort the dictionary by time (ascending order) to display the fastest times
-        string leaderboardOutput = "Leaderboard:\n";
+        string leaderboardOutput = "Leaderboard:\n\n";
         int rank = 1;
 
         // Sort the dictionary by value (time)
         foreach (var entry in highScoresDict.OrderBy(kvp => kvp.Value))
         {
-            leaderboardOutput += $"{rank}. {entry.Key} (Time: {entry.Value}s)\n";
+            int minutes = entry.Value / 60;
+            int seconds = entry.Value % 60;
+            leaderboardOutput += $"{rank}. {entry.Key} (Time: {minutes:00}:{seconds:00})\n\n";
             rank++;
         }
 
@@ -44,50 +47,66 @@ public class HighScore : SingletonMonobehaviour<HighScore>
         }
     }
 
-    public void UpdateHighScores(string playerName, int time)
+    /// <summary>
+    /// Loads the high scores from a file.
+    /// </summary>
+    private void LoadHighScoresFromFile()
     {
-        Debug.Log("Updating high scores");
-
-        // If there are already 10 scores, remove the worst score (the highest time)
-        if (highScoresDict.Count >= 10)
+        string filePath = Application.persistentDataPath + "/highscores.json";
+        if (File.Exists(filePath))
         {
-            var maxKey = highScoresDict.OrderByDescending(kvp => kvp.Value).FirstOrDefault().Key;
-            highScoresDict.Remove(maxKey);
+            string json = File.ReadAllText(filePath);
+            Serialization<string, int> serialization = JsonUtility.FromJson<Serialization<string, int>>(json);
+            highScoresDict = serialization.ToDictionary();
         }
-
-        // Add or update the player's score
-        highScoresDict[playerName] = time;
-
-        // Save high scores after updating
-        SaveHighScores();
     }
 
-    private void SaveHighScores()
+    ///// <summary>
+    ///// Saves the high scores to a file.
+    ///// </summary>
+    //private void SaveHighScoresToFile()
+    //{
+    //    string filePath = Application.persistentDataPath + "/highscores.json";
+    //    string json = JsonUtility.ToJson(new Serialization<string, int>(highScoresDict));
+    //    File.WriteAllText(filePath, json);
+    //}
+
+    ///// <summary>
+    ///// Adds a new high score to the dictionary and saves it to the file.
+    ///// </summary>
+    ///// <param name="playerName">The name of the player.</param>
+    ///// <param name="time">The time achieved by the player.</param>
+    //public void AddHighScore(string playerName, int time)
+    //{
+    //    if (!highScoresDict.ContainsKey(playerName) || highScoresDict[playerName] > time)
+    //    {
+    //        highScoresDict[playerName] = time;
+    //        SaveHighScoresToFile();
+    //        ShowHighScore();
+    //    }
+    //}
+
+    [System.Serializable]
+    public class Serialization<TKey, TValue>
     {
-        int index = 0;
-        foreach (var entry in highScoresDict)
-        {
-            PlayerPrefs.SetString("HighScore_Player_" + index, entry.Key);   // Player name
-            PlayerPrefs.SetInt("HighScore_Time_" + index, entry.Value);       // Time
-            index++;
-        }
-        PlayerPrefs.SetInt("HighScore_Count", highScoresDict.Count);
-        PlayerPrefs.Save();
-    }
+        public List<TKey> keys;
+        public List<TValue> values;
 
-    public void LoadHighScores()
-    {
-        highScoresDict.Clear();
-        int count = PlayerPrefs.GetInt("HighScore_Count", 0);
-
-        for (int i = 0; i < count; i++)
+        public Serialization(Dictionary<TKey, TValue> dict)
         {
-            string playerName = PlayerPrefs.GetString("HighScore_Player_" + i);
-            int time = PlayerPrefs.GetInt("HighScore_Time_" + i);
-            highScoresDict[playerName] = time;
+            keys = new List<TKey>(dict.Keys);
+            values = new List<TValue>(dict.Values);
         }
 
-        ShowHighScore();
+        public Dictionary<TKey, TValue> ToDictionary()
+        {
+            Dictionary<TKey, TValue> dict = new Dictionary<TKey, TValue>();
+            for (int i = 0; i < keys.Count; i++)
+            {
+                dict[keys[i]] = values[i];
+            }
+            return dict;
+        }
     }
 }
 
