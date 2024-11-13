@@ -64,6 +64,13 @@ public class RoomTemplateSO : ScriptableObject
 
     [SerializeField] public List<Doorway> doorwayList;
 
+    #region Header ENEMY DETAILS
+
+    [Space(10)]
+    [Header("ENEMY DETAILS")]
+
+    #endregion Header ENEMY DETAILS
+
     #region Tooltip
 
     [Tooltip("Each possible spawn position (used for enemies and chests) for the room in tilemap coordinates should be added to this array")]
@@ -72,11 +79,20 @@ public class RoomTemplateSO : ScriptableObject
 
     public Vector2Int[] spawnPositionArray;
 
-    #region  Header ENEMY DETAILS
-    [Space(10)]
-    [Header("ENEMY DETAILS")]
-    #endregion
+    #region Tooltip
+
+    [Tooltip("List of enemies by level for this room.")]
+
+    #endregion Tooltip
+
     public List<SpawnableObjectByLevel<EnemyDetailsSO>> enemiesByLevelList;
+
+    #region Tooltip
+
+    [Tooltip("Parameters for enemy spawning in this room.")]
+
+    #endregion Tooltip
+
     public List<RoomEnemySpawnParameters> roomEnemySpawnParametersList;
 
 

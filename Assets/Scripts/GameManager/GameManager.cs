@@ -21,6 +21,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private CountUpTimer countUpTimer;
+    [SerializeField] private CountdownTimer countdownTimer;
 
     #region Header DUNGEON LEVELS
     [Space(10)]
@@ -44,16 +45,14 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private Room previousRoom;
     private PlayerDetailsSO playerDetails;
     private Player player;
+    private InstantiatedRoom bossRoom;
 
-    
 
     [HideInInspector] public GameState gameState;
     [HideInInspector] public GameState previousGameState;
-
-    private InstantiatedRoom bossRoom;
-
     [HideInInspector] public int CurrentDungeonLevelListIndex => currentDungeonLevelListIndex;
     [HideInInspector] public List<DungeonLevelSO> DungeonLevelList => dungeonLevelList;
+
     protected override void Awake()
     {
         base.Awake();
@@ -105,8 +104,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         previousGameState = GameState.gameStarted;
         gameState = GameState.gameStarted;
         //SetPlayerName();
-
-
     }
 
     private void Update()
@@ -243,23 +240,25 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private IEnumerator ToNextLevel()
     {
         gameState = GameState.playingLevel;
-        //yield return new WaitForSeconds(2f);
-        
+        yield return new WaitForSeconds(2f);
+
         Debug.Log("Press Enter to the next level");
 
         yield return StartCoroutine(Fade(0f, 1f, 2f, new Color(0f, 0f, 0f, 0.4f)));
 
         yield return StartCoroutine(DisplayMessageText("You have survived. \nPress Enter to proceed to the next level.", Color.white, 2f));
 
-        if (!Input.GetKeyDown(KeyCode.Return))
+        // Wait for the player to press the Enter key
+        while (!Input.GetKeyDown(KeyCode.Return))
         {
             yield return null;
         }
 
-        yield return null;
-
+        // Proceed to the next level
         currentDungeonLevelListIndex++;
         PlayDungeonLevel(currentDungeonLevelListIndex);
+        countdownTimer.ResetTimer();
+        // Reset and start the timer for the new leve
     }
 
     private IEnumerator GameWon()
@@ -283,10 +282,10 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         previousGameState = GameState.gameLost;
 
-        //HighScore.Instance.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
+        countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
         //yield return new WaitForSeconds(1f);
 
-        //countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
+        countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
 
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
 
@@ -361,7 +360,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     {
         if (gameState != GameState.gamePaused)
         {
-            GetPlayer().playerControl.DisablePlayer();
+            player.playerControl.DisablePlayer();
             pauseMenu.TogglePauseMenu();
 
             previousGameState = gameState;
@@ -371,7 +370,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         else if (gameState == GameState.gamePaused)
         {
-            GetPlayer().playerControl.EnablePlayer();
+            player.playerControl.EnablePlayer();
             pauseMenu.TogglePauseMenu();
 
             gameState = previousGameState;

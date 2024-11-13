@@ -13,34 +13,58 @@ public class RoomNodeGraphSO : ScriptableObject {
         LoadRoomNodeDictionary();
     }
 
-    private void LoadRoomNodeDictionary(){
+    /// <summary>
+    /// Loads the room nodes into the dictionary for quick lookup.
+    /// </summary>
+    private void LoadRoomNodeDictionary()
+    {
         roomNodeDictionary.Clear();
 
-        foreach (RoomNodeSO node in roomNodeList){
+        foreach (RoomNodeSO node in roomNodeList)
+        {
             roomNodeDictionary[node.id] = node;
         }
     }
 
-    public RoomNodeSO GetRoomNode(RoomNodeTypeSO roomNodeType){
-        foreach (RoomNodeSO node in roomNodeList){
-            if (node.roomNodeType == roomNodeType){
+    /// <summary>
+    /// Gets the room node of the specified type.
+    /// </summary>
+    /// <param name="roomNodeType">The type of the room node to find.</param>
+    /// <returns>The room node of the specified type, or null if not found.</returns>
+    public RoomNodeSO GetRoomNode(RoomNodeTypeSO roomNodeType)
+    {
+        foreach (RoomNodeSO node in roomNodeList)
+        {
+            if (node.roomNodeType == roomNodeType)
+            {
                 return node;
             }
         }
         return null;
     }
 
-    // return List of RoomNode
-    public IEnumerable<RoomNodeSO> GetChildRoomNodes(RoomNodeSO parentRoomNode){
-        foreach(string childRoomNodeID in parentRoomNode.childRoomNodeIDList){
+    /// <summary>
+    /// Gets the child room nodes of the specified parent room node.
+    /// </summary>
+    /// <param name="parentRoomNode">The parent room node.</param>
+    /// <returns>An enumerable collection of child room nodes.</returns>
+    public IEnumerable<RoomNodeSO> GetChildRoomNodes(RoomNodeSO parentRoomNode)
+    {
+        foreach (string childRoomNodeID in parentRoomNode.childRoomNodeIDList)
+        {
             yield return GetRoomNode(childRoomNodeID);
         }
     }
 
-    // public RoomNodeSO GetRoom
-
-    public RoomNodeSO GetRoomNode(string roomNodeID){
-        if(roomNodeDictionary.TryGetValue(roomNodeID, out RoomNodeSO roomNode)){
+    /// <summary>
+    /// Gets the room node with the specified ID.
+    /// </summary>
+    /// <param name="roomNodeID">The ID of the room node to find.</param>
+    /// <returns>The room node with the specified ID, or null if not found.</returns>
+    public RoomNodeSO GetRoomNode(string roomNodeID)
+    {
+        if (roomNodeDictionary.TryGetValue(roomNodeID, out RoomNodeSO roomNode))
+        {
             return roomNode;
         }
         return null;

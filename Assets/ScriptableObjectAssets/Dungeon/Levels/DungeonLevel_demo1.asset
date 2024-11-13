@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9c82617c82fd404ab9bd2c3153db9ed, type: 3}
-  m_Name: CurrentPlayer
+  m_Script: {fileID: 11500000, guid: 3203156e009a3ac49a4a485122a31b2b, type: 3}
+  m_Name: DungeonLevel_demo1
   m_EditorClassIdentifier: 
-  playerDetails: {fileID: 11400000, guid: 97105eeffbecf714cbefac802d73f70a, type: 2}
-  playerName: 
+  levelName: this is demo
+  roomTemplateList: []
+  roomNodeGraphList: []
+  timeLimit: 0

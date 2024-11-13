@@ -68,7 +68,6 @@ MonoBehaviour:
   idleEvent: {fileID: 0}
   spriteRendererArray: []
   animator: {fileID: 0}
-  health: {fileID: 0}
   enemySound: {fileID: 0}
 --- !u!210 &1340341490285413915
 SortingGroup:

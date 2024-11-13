@@ -4,7 +4,10 @@ using TMPro;
 
 public class CountdownTimer : MonoBehaviour
 {
+    [Tooltip("Text component to display the timer.")]
     public TextMeshProUGUI timerText;
+
+    [Tooltip("Indicates whether the timer is running.")]
     public bool timerIsRunning = false;
 
     private float startTime;
@@ -17,23 +20,32 @@ public class CountdownTimer : MonoBehaviour
 
     private void Start()
     {
-        remainingTime = startTime;
-        timerIsRunning = true;
+        StartTimer();
     }
 
     private void Update()
     {
-        if (!timerIsRunning) return;
+        if (timerIsRunning)
+        {
+            UpdateRemainingTime();
+            if (remainingTime > 0)
+            {
+                DisplayTime(remainingTime);
+            }
+            else
+            {
+                HandleTimerEnd();
+            }
+        }
+    }
 
-        UpdateRemainingTime();
-        if (remainingTime > 0)
-        {
-            DisplayTime(remainingTime);
-        }
-        else
-        {
-            HandleTimerEnd();
-        }
+    /// <summary>
+    /// Starts the timer.
+    /// </summary>
+    private void StartTimer()
+    {
+        remainingTime = startTime;
+        timerIsRunning = true;
     }
 
     /// <summary>
@@ -54,39 +66,36 @@ public class CountdownTimer : MonoBehaviour
         GameManager.Instance.gameState = GameState.gameLost;
     }
 
-
-    
-
     /// <summary>
     /// Sets the start time based on the current dungeon level index.
     /// </summary>
-    private void SetStartTime()
+    public void SetStartTime()
     {
         startTime = GameManager.Instance.GetCurrentDungeonLevel().timeLimit;
-
     }
 
+    /// <summary>
+    /// Displays the remaining time in the timer text component.
+    /// </summary>
+    /// <param name="timeToDisplay">Time to display.</param>
     private void DisplayTime(float timeToDisplay)
     {
         int minutes = Mathf.FloorToInt(timeToDisplay / 60);
         int seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
-        if (timeToDisplay <= 10)
-        {
-            timerText.color = Color.red;  
-        }
-        else
-        {
-            timerText.color = Color.white;  
-        }
-
+        timerText.color = timeToDisplay <= 10 ? Color.red : Color.white;
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
+    /// <summary>
+    /// Resets the timer to the start time and updates the display.
+    /// </summary>
     public void ResetTimer()
     {
+        SetStartTime();
         remainingTime = startTime;
         timerIsRunning = true;
         DisplayTime(remainingTime); // Update the display immediately
+        Debug.Log($"Timer reset: startTime={startTime}, remainingTime={remainingTime}");
     }
 }

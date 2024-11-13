@@ -16,8 +16,6 @@ MonoBehaviour:
   roomTemplateList:
   - {fileID: 11400000, guid: 3cdc996eae718644dad8dad24ae2c39f, type: 2}
   - {fileID: 11400000, guid: 03fb8e6e180566844b9c3942a093676e, type: 2}
-  - {fileID: 11400000, guid: 5e10298487db4a548a9e425ea037c915, type: 2}
-  - {fileID: 11400000, guid: 9927e94b574775f4c83d6ac8ef1a7ea1, type: 2}
   - {fileID: 11400000, guid: 17aab39e60e31b44cbb99c260366f725, type: 2}
   - {fileID: 11400000, guid: 75e9ed4d33bf76c439c799075b936c76, type: 2}
   - {fileID: 11400000, guid: 58168ebb0df392f41b061a0c6b25da05, type: 2}
@@ -41,4 +39,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1149dcf4facbddf4aaea97c24fa070e9, type: 2}
   - {fileID: 11400000, guid: bffeb0f24244f22448d5a2fb2785f118, type: 2}
   - {fileID: 11400000, guid: 1f007ff964ee6a744a5dea90a05c6fcb, type: 2}
-  timeLimit: 361
+  timeLimit: 800

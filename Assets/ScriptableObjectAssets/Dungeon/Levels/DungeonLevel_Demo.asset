@@ -10,17 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3203156e009a3ac49a4a485122a31b2b, type: 3}
-  m_Name: DungeonLevel_Level7
+  m_Name: DungeonLevel_Demo
   m_EditorClassIdentifier: 
-  levelName: The ExtraStep
+  levelName: This is demo
   roomTemplateList:
   - {fileID: 11400000, guid: b497cf51860cc124088acdf3dfcc4bdc, type: 2}
-  - {fileID: 11400000, guid: aeaa238dda2b934409291731e7646e39, type: 2}
-  - {fileID: 11400000, guid: 1cbc835c305513640970724d8b4d26ef, type: 2}
-  - {fileID: 11400000, guid: 6de62b1aab2953146a354bd9e5f255d0, type: 2}
-  - {fileID: 11400000, guid: ca3ebf2399132f74589db4539c90168f, type: 2}
-  - {fileID: 11400000, guid: f7eb3d585fba40941805d195e7ca6a1f, type: 2}
-  - {fileID: 11400000, guid: 38e938fd0392ecd4f859df7c1a9a4371, type: 2}
   - {fileID: 11400000, guid: 17aab39e60e31b44cbb99c260366f725, type: 2}
   - {fileID: 11400000, guid: 75e9ed4d33bf76c439c799075b936c76, type: 2}
   - {fileID: 11400000, guid: 58168ebb0df392f41b061a0c6b25da05, type: 2}
@@ -34,6 +28,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3cdc996eae718644dad8dad24ae2c39f, type: 2}
   - {fileID: 11400000, guid: 03fb8e6e180566844b9c3942a093676e, type: 2}
   - {fileID: 11400000, guid: 44aecdcc3db913e4499e1717a8957c90, type: 2}
+  - {fileID: 11400000, guid: 1cbc835c305513640970724d8b4d26ef, type: 2}
   roomNodeGraphList:
-  - {fileID: 11400000, guid: eebba38b423cc374ab36f2f2ecb6404e, type: 2}
-  timeLimit: 1000
+  - {fileID: 11400000, guid: 672c774dd51cef045b312893e397c0c4, type: 2}
+  timeLimit: 200
