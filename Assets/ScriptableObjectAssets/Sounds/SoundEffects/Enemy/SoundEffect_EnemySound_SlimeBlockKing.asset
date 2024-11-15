@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SoundEffect_EnemySound_SlimeBlockKing
   m_EditorClassIdentifier: 
   soundEffectName: 
-  soundPrefab: {fileID: 0}
+  soundPrefab: {fileID: 1504514487756828174, guid: 9ce42ad6a33a01a4da5b54c2b31b453d, type: 3}
   soundEffectClip: {fileID: 0}
-  soundEffectPitchRandomVariationMin: 0.8
-  soundEffectPitchRandomVariationMax: 1.2
+  minPitchVariation: 0.8
+  maxPitchVariation: 1.2
   soundEffectVolume: 1

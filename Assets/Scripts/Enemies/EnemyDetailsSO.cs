@@ -4,7 +4,8 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "EnemyDetails_", menuName = "Scriptable Objects/Enemy/EnemyDetails")]
-public class EnemyDetailsSO : ScriptableObject {
+public class EnemyDetailsSO : ScriptableObject
+{
     #region Header BASE ENEMY DETAILS
     [Space(10)]
     [Header("BASE ENEMY DETAILS")]
@@ -12,11 +13,12 @@ public class EnemyDetailsSO : ScriptableObject {
     public string enemyName;
     public GameObject enemyPrefab;
     public float chaseDistance = 50f;
-
+    public int damage;
     public EnemyHealthDetails[] healthDetailsArray;
     #region Validation
 #if UNITY_EDITOR
-    private void OnValidate() {
+    private void OnValidate()
+    {
         HelperUtilities.ValidateCheckEmptyString(this, nameof(enemyName), enemyName);
         HelperUtilities.ValidateCheckNullValue(this, nameof(enemyPrefab), enemyPrefab);
     }

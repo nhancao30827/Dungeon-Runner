@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: damageDealt
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -882202554105457681, guid: 953e28fbee804504998ad2b248f8435b, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 49ebb09ddbbe6154da4b31320ff0252a, type: 2}
     - target: {fileID: 594106633709476091, guid: 953e28fbee804504998ad2b248f8435b, type: 3}
       propertyPath: m_Name
       value: SkullFace_Blue

@@ -178,6 +178,12 @@ public class RoomNodeSO : ScriptableObject
 
     public bool AddChildRoomNodeIDToRoomNode(string childID)
     {
+        RoomNodeSO childNode = roomNodeGraph.GetRoomNode(childID);
+
+        if (roomNodeType.isCorridor && childNode.roomNodeType.isCorridor)
+        {
+            return false;
+        }
 
         if (IsChildRoomValid(childID))
         {

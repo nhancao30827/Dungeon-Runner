@@ -29,13 +29,13 @@ public class SoundEffectSO : ScriptableObject
     [Tooltip("Minimum pitch variation for the sound effect")]
     #endregion
     [Range(0.1f, 1.5f)]
-    public float soundEffectPitchRandomVariationMin = 0.8f;
+    public float minPitchVariation = 0.8f;
 
     #region Tooltip
     [Tooltip("Maximum pitch variation for the sound effect")]
     #endregion
     [Range(0.1f, 1.5f)]
-    public float soundEffectPitchRandomVariationMax = 1.2f;
+    public float maxPitchVariation = 1.2f;
 
     #region Tool tip
     [Tooltip("Volume of the sound effect")]
@@ -50,8 +50,6 @@ public class SoundEffectSO : ScriptableObject
         HelperUtilities.ValidateCheckEmptyString(this, nameof(soundEffectName), soundEffectName);
         HelperUtilities.ValidateCheckNullValue(this, nameof(soundPrefab), soundPrefab);
         HelperUtilities.ValidateCheckNullValue(this, nameof(soundEffectClip), soundEffectClip);
-        HelperUtilities.ValidateCheckPositiveRange(this, nameof(soundEffectPitchRandomVariationMin), soundEffectPitchRandomVariationMin,
-            nameof(soundEffectPitchRandomVariationMax), soundEffectPitchRandomVariationMax, false);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(soundEffectVolume), soundEffectVolume, true);
     }
 #endif

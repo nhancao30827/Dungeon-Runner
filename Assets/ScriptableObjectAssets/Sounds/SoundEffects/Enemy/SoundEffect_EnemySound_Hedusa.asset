@@ -15,6 +15,6 @@ MonoBehaviour:
   soundEffectName: Enemy Sound Hedusa
   soundPrefab: {fileID: 1504514487756828174, guid: 9ce42ad6a33a01a4da5b54c2b31b453d, type: 3}
   soundEffectClip: {fileID: 8300000, guid: 44e375649b81e4c49bad92212e1c1bcb, type: 3}
-  soundEffectPitchRandomVariationMin: 0.8
-  soundEffectPitchRandomVariationMax: 1.2
+  soundEffectPitchRandomVariationMin: 0.548
+  soundEffectPitchRandomVariationMax: 1.019
   soundEffectVolume: 0.7

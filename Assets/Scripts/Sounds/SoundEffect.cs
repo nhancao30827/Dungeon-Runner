@@ -21,8 +21,8 @@ public class SoundEffect : MonoBehaviour
     }
 
     public void SetSound(SoundEffectSO soundEffect){
-        audioSource.pitch = Random.Range(soundEffect.soundEffectPitchRandomVariationMin, // Randomize the pitch for a more natural sound
-            soundEffect.soundEffectPitchRandomVariationMax);
+        audioSource.pitch = Random.Range(soundEffect.minPitchVariation, // Randomize the pitch for a more natural sound
+            soundEffect.maxPitchVariation);
         audioSource.volume = soundEffect.soundEffectVolume;
         audioSource.clip = soundEffect.soundEffectClip;
     }

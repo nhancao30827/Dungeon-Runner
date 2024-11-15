@@ -285,7 +285,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
         //yield return new WaitForSeconds(1f);
 
-        countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
+        //countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
 
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
 

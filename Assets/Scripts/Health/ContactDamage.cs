@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class ContactDamage : MonoBehaviour
 {
-    public int damageDealt;
+    public EnemyDetailsSO enemyDetails;
 
     public LayerMask layerMask;
 
@@ -46,7 +46,7 @@ public class ContactDamage : MonoBehaviour
 
     private void ApplyDamageToPlayer()
     {
-        GameManager.Instance.GetPlayer().health.TakeDamage(damageDealt);
+        GameManager.Instance.GetPlayer().health.TakeDamage(enemyDetails.damage);
         StartCoroutine(TakeDamageEffect());
     }
 

@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: SkullFace Blue
   enemyPrefab: {fileID: 6509557497557676930, guid: 5815821434ad00e4cb8bbd5dca6818af, type: 3}
   chaseDistance: 50
+  damage: 4
   healthDetailsArray:
   - levelSO: {fileID: 11400000, guid: efcd912fc42838b48be3dbfce1abd522, type: 2}
     enemyHealthAmount: 100
@@ -26,5 +27,5 @@ MonoBehaviour:
     enemyHealthAmount: 160
   - levelSO: {fileID: 11400000, guid: 13103dadfb8273a49a02bbba2babd7f5, type: 2}
     enemyHealthAmount: 180
-  - levelSO: {fileID: 11400000, guid: 332c037b328bc314ebebb3f5aaa1cf40, type: 2}
-    enemyHealthAmount: 180
+  - levelSO: {fileID: 11400000, guid: e4a7771911939f94e99539640846b45a, type: 2}
+    enemyHealthAmount: 30

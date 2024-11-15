@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: Hedusa_Blue
   enemyPrefab: {fileID: 7729625764069547130, guid: 37e6e7604457e1148a1265a3c88cfcf6, type: 3}
   chaseDistance: 50
+  damage: 1
   healthDetailsArray:
   - levelSO: {fileID: 11400000, guid: efcd912fc42838b48be3dbfce1abd522, type: 2}
     enemyHealthAmount: 25
@@ -26,5 +27,5 @@ MonoBehaviour:
     enemyHealthAmount: 40
   - levelSO: {fileID: 11400000, guid: 13103dadfb8273a49a02bbba2babd7f5, type: 2}
     enemyHealthAmount: 45
-  - levelSO: {fileID: 11400000, guid: 332c037b328bc314ebebb3f5aaa1cf40, type: 2}
-    enemyHealthAmount: 45
+  - levelSO: {fileID: 11400000, guid: e4a7771911939f94e99539640846b45a, type: 2}
+    enemyHealthAmount: 20

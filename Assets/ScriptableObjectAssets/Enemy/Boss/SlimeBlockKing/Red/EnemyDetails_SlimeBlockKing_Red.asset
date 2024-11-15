@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: Slime Block King Red
   enemyPrefab: {fileID: 2005673493720447512, guid: c0964338fb254ba4893c4e385414532d, type: 3}
   chaseDistance: 50
+  damage: 4
   healthDetailsArray:
   - levelSO: {fileID: 11400000, guid: efcd912fc42838b48be3dbfce1abd522, type: 2}
     enemyHealthAmount: 120
