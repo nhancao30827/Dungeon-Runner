@@ -4,12 +4,12 @@ using TMPro;
 
 public class CountdownTimer : MonoBehaviour
 {
+    #region Tooltip
     [Tooltip("Text component to display the timer.")]
-    public TextMeshProUGUI timerText;
+    #endregion
+    [SerializeField] private TextMeshProUGUI timerText;
 
-    [Tooltip("Indicates whether the timer is running.")]
-    public bool timerIsRunning = false;
-
+    private bool timerIsRunning = false;
     private float startTime;
     private float remainingTime;
 

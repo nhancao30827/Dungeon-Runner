@@ -17,3 +17,5 @@ MonoBehaviour:
   runtimeAnimatorController: {fileID: 9100000, guid: e87ce176a15556c459b355908992b930, type: 2}
   playerHealthAmount: 5
   playerHandSprite: {fileID: 21300000, guid: a8c352369ed75924d84743672d1ab512, type: 3}
+  playerHitSound: {fileID: 11400000, guid: dc362258b0fffb54492785252adaac75, type: 2}
+  playerWalkSound: {fileID: 11400000, guid: ca29826fd460eaa4b9a185d7d7623bc7, type: 2}

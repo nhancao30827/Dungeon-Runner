@@ -16,6 +16,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 7729625764069547130, guid: 152b405df95d09e469281934eabc1762, type: 3}
   chaseDistance: 50
   damage: 1
+  enemyWalkSound: {fileID: 11400000, guid: b825d909cc769e844a13a24ffa1b96b0, type: 2}
   healthDetailsArray:
   - levelSO: {fileID: 11400000, guid: efcd912fc42838b48be3dbfce1abd522, type: 2}
     enemyHealthAmount: 30

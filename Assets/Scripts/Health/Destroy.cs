@@ -21,16 +21,19 @@ public class Destroy : MonoBehaviour
         destroyEvent.OnDestroy -= DestroyEvent_OnDestroy;
     }
 
+    /// <summary>
+    /// Handles the destroy event when it is triggered.
+    /// </summary>
+    /// <param name="destroyEvent">The destroy event that was triggered.</param>
+    /// <param name="destroyEventArgs">The arguments for the destroy event.</param>
     private void DestroyEvent_OnDestroy(DestroyEvent destroyEvent, DestroyEventArgs destroyEventArgs)
     {
         Debug.Log(destroyEventArgs.isPlayerDead);
         if (destroyEventArgs.isPlayerDead)
         {
-            Debug.Log("MADAFAKA");
+            Debug.Log("KABOOM");
             gameObject.SetActive(false);
-
         }
-
         else
         {
             Destroy(gameObject);

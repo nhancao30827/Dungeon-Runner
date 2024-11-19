@@ -15,6 +15,6 @@ MonoBehaviour:
   soundEffectName: Player
   soundPrefab: {fileID: 1504514487756828174, guid: 9ce42ad6a33a01a4da5b54c2b31b453d, type: 3}
   soundEffectClip: {fileID: 8300000, guid: 41b4be87b5f8ef6439c99de8018886a9, type: 3}
-  soundEffectPitchRandomVariationMin: 0.931
-  soundEffectPitchRandomVariationMax: 0.931
-  soundEffectVolume: 0.61
+  minPitchVariation: 1
+  maxPitchVariation: 1
+  soundEffectVolume: 0.599

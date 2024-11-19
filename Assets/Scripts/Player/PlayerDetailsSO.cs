@@ -23,25 +23,25 @@ public class PlayerDetailsSO : ScriptableObject {
     #endregion
     public RuntimeAnimatorController runtimeAnimatorController;
 
-    #region Header HEALTH
-    [Space(10)]
-    [Header("HEALTH")]
-    #endregion
     #region Tooltip
     [Tooltip("Player starting health amount")]
     #endregion
     public int playerHealthAmount;
 
-    #region Header OTHER
-    [Space(10)]
-    [Header("OTHER")]
-    #endregion
-
     #region Tooltip
     [Tooltip("Player ahnd sprite")]
     #endregion
-    public Sprite playerHandSprite;
+    [HideInInspector] public Sprite playerHandSprite;
 
+    #region Tooltip
+    [Tooltip("Sound effect played when the player is hit.")]
+    #endregion
+    public SoundEffectSO playerHitSound;
+
+    #region Tooltip
+    [Tooltip("Sound effect played when the player walks.")]
+    #endregion
+    public SoundEffectSO playerWalkSound;
     #region Validation
 #if UNITY_EDITOR
 

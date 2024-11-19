@@ -238,36 +238,41 @@ public class InstantiatedRoom : MonoBehaviour
         {
             if (doorway.doorPrefab != null && doorway.isConnected)
             {
-                float tileDistance = Settings.tileSizePixels / Settings.pixelsPerUnit;
+                GameObject door = Instantiate(doorway.doorPrefab, gameObject.transform);
+                door.transform.localPosition = GetDoorPosition(doorway);
 
-                GameObject door = null;
-                door = Instantiate(doorway.doorPrefab, gameObject.transform);
-
-                if (doorway.orientation == Orientation.north)
-                {
-                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y + tileDistance, 0f);
-                }
-                else if (doorway.orientation == Orientation.south)
-                {
-                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y, 0f);
-                }
-                else if (doorway.orientation == Orientation.east)
-                {
-                    door.transform.localPosition = new Vector3(doorway.position.x + tileDistance, doorway.position.y + tileDistance * 1.25f, 0f);
-                }
-                else if (doorway.orientation == Orientation.west)
-                {
-                    door.transform.localPosition = new Vector3(doorway.position.x, doorway.position.y + tileDistance * 1.25f, 0f);
-                }
-
-                //Door doorComponent = door.GetComponent<Door>();
-                //if (room.roomNodeType.isBossRoom)
-                //{
-                //    doorComponent.isBossRoomDoor = true;
-
-                //    doorComponent.LockDoor();
-                //}
+                // Uncomment and modify the following lines if needed
+                // Door doorComponent = door.GetComponent<Door>();
+                // if (room.roomNodeType.isBossRoom)
+                // {
+                //     doorComponent.isBossRoomDoor = true;
+                //     doorComponent.LockDoor();
+                // }
             }
+        }
+    }
+
+    /// <summary>
+    /// Gets the local position for the door based on the doorway's orientation.
+    /// </summary>
+    /// <param name="doorway">The doorway to get the position for.</param>
+    /// <returns>The local position for the door.</returns>
+    private Vector3 GetDoorPosition(Doorway doorway)
+    {
+        float tileDistance = Settings.tileSizePixels / Settings.pixelsPerUnit;
+
+        switch (doorway.orientation)
+        {
+            case Orientation.north:
+                return new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y + tileDistance, 0f);
+            case Orientation.south:
+                return new Vector3(doorway.position.x + tileDistance / 2f, doorway.position.y, 0f);
+            case Orientation.east:
+                return new Vector3(doorway.position.x + tileDistance, doorway.position.y + tileDistance * 1.25f, 0f);
+            case Orientation.west:
+                return new Vector3(doorway.position.x, doorway.position.y + tileDistance * 1.25f, 0f);
+            default:
+                return Vector3.zero;
         }
     }
 

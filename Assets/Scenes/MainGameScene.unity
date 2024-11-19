@@ -422,9 +422,9 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0.0017331023
+    y: 0.16053513
     width: 1
-    height: 0.99729204
+    height: 0.67913884
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -2948,6 +2948,9 @@ MonoBehaviour:
   countdownTimer: {fileID: 6779726839781611051}
   dungeonLevelList:
   - {fileID: 11400000, guid: e4a7771911939f94e99539640846b45a, type: 2}
+  - {fileID: 11400000, guid: efcd912fc42838b48be3dbfce1abd522, type: 2}
+  - {fileID: 11400000, guid: 4500060e3106fe540a7036910b581a96, type: 2}
+  - {fileID: 11400000, guid: 9ac11bcfbaf2d6f43bc7efece166598c, type: 2}
   currentDungeonLevelListIndex: 0
   gameState: 0
   previousGameState: 0
@@ -3442,7 +3445,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1865829541753315498}
-  timerIsRunning: 1
 --- !u!222 &4299208268697750349
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3686,7 +3688,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 4750094508692826580}
-  timerIsRunning: 0
 --- !u!224 &7710904798153678468
 RectTransform:
   m_ObjectHideFlags: 0

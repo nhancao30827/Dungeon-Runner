@@ -6,7 +6,14 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    #region Tooltip
+    [Tooltip("Slider to adjust the sound effect volume.")]
+    #endregion
     [SerializeField] private Slider soundEffectSlider;
+
+    #region Tooltip
+    [Tooltip("Text to display the current sound effect volume.")]
+    #endregion
     [SerializeField] private TextMeshProUGUI volumeText;
 
     private void OnEnable()

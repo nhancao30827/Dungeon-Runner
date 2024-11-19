@@ -13,15 +13,36 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [Space(10)]
     [Header("UI ELEMENTS")]
     #endregion
+    #region Tooltip
     [Tooltip("Text component for displaying game messages")]
+    #endregion
     public TextMeshProUGUI gameMessageText;
 
+    #region Tooltip
     [Tooltip("Canvas group for handling UI fade effects")]
+    #endregion
     [SerializeField] private CanvasGroup canvasGroup;
+
+    #region Tooltip
+    [Tooltip("Text component for displaying the player's name")]
+    #endregion
     [SerializeField] private TextMeshProUGUI playerName;
+
+    #region Tooltip
+    [Tooltip("Reference to the pause menu")]
+    #endregion
     [SerializeField] private PauseMenu pauseMenu;
+
+    #region Tooltip
+    [Tooltip("Reference to the count-up timer")]
+    #endregion
     [SerializeField] private CountUpTimer countUpTimer;
+
+    #region Tooltip
+    [Tooltip("Reference to the countdown timer")]
+    #endregion
     [SerializeField] private CountdownTimer countdownTimer;
+
 
     #region Header DUNGEON LEVELS
     [Space(10)]
@@ -116,6 +137,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
     }
 
+    /// <summary>
+    /// Handles the completion of the current level.
+    /// </summary>
     private void LevelComplete()
     {
         bossRoom = null;
@@ -130,7 +154,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             }
         }
 
-       if (bossRoom == null || bossRoom.room.isClearedOfEnemies == true)
+        if (bossRoom == null || bossRoom.room.isClearedOfEnemies == true)
         {
             if (currentDungeonLevelListIndex < dungeonLevelList.Count - 1)
             {
@@ -142,9 +166,13 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 gameState = GameState.gameWon;
             }
         }
-        
     }
 
+    /// <summary>
+    /// Handles the event when the player is destroyed.
+    /// </summary>
+    /// <param name="destroyEvent">The destroy event.</param>
+    /// <param name="destroyEventArgs">The destroy event arguments.</param>
     private void Player_OnDestroy(DestroyEvent destroyEvent, DestroyEventArgs destroyEventArgs)
     {
         previousGameState = gameState;
@@ -152,6 +180,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         Debug.Log("Player Destroyed");
     }
 
+    /// <summary>
+    /// Handles the game state transitions.
+    /// </summary>
     private void HandleGameState()
     {
         switch (gameState)
@@ -185,7 +216,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                 {
                     StartCoroutine(GameWon());
                 }
-
                 break;
 
             case GameState.gameLost:
@@ -194,7 +224,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
                     StopAllCoroutines();
                     StartCoroutine(GameLost());
                 }
-
                 break;
 
             case GameState.restartGame:
@@ -210,9 +239,12 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
     }
 
+    /// <summary>
+    /// Plays the specified dungeon level.
+    /// </summary>
+    /// <param name="dungeonLeveListIndex">Index of the dungeon level list.</param>
     private void PlayDungeonLevel(int dungeonLeveListIndex)
     {
-
         bool dungeonBuiltSuccessful = DungeonBuilder.Instance.GenerateDungeon(dungeonLevelList[dungeonLeveListIndex]);
 
         if (!dungeonBuiltSuccessful)
@@ -230,13 +262,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         StartCoroutine(DisplayLevelText());
     }
 
-    //private void NextLevel(int dungeonLevelListIndex)
-    //{
-    //    currentDungeonLevelListIndex = (dungeonLevelListIndex + 1) % dungeonLevelList.Count;
-    //    timer.ResetTimer();
-    //    gameState = GameState.gameStarted;
-    //}
-
+    /// <summary>
+    /// Coroutine to transition to the next level.
+    /// </summary>
     private IEnumerator ToNextLevel()
     {
         gameState = GameState.playingLevel;
@@ -258,9 +286,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         currentDungeonLevelListIndex++;
         PlayDungeonLevel(currentDungeonLevelListIndex);
         countdownTimer.ResetTimer();
-        // Reset and start the timer for the new leve
     }
 
+    /// <summary>
+    /// Coroutine to handle the game won state.
+    /// </summary>
     private IEnumerator GameWon()
     {
         previousGameState = GameState.gameWon;
@@ -278,14 +308,12 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         gameState = GameState.restartGame;
     }
 
+    /// <summary>
+    /// Coroutine to handle the game lost state.
+    /// </summary>
     private IEnumerator GameLost()
     {
         previousGameState = GameState.gameLost;
-
-        countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
-        //yield return new WaitForSeconds(1f);
-
-        //countUpTimer.UpdateHighScores(GameResources.Instance.currentPlayerSO.playerName, countUpTimer.GetFinishTime());
 
         yield return StartCoroutine(Fade(0f, 1f, 2f, Color.black));
 
@@ -303,10 +331,16 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         gameState = GameState.restartGame;
     }
 
+    /// <summary>
+    /// Coroutine to handle the fade effect.
+    /// </summary>
+    /// <param name="starAlpha">The starting alpha value.</param>
+    /// <param name="targetAlpha">The target alpha value.</param>
+    /// <param name="fadeSecond">The duration of the fade in seconds.</param>
+    /// <param name="backgroundColor">The background color.</param>
     private IEnumerator Fade(float starAlpha, float targetAlpha, float fadeSecond, Color backgroundColor)
     {
         Image image = canvasGroup.GetComponent<Image>();
-        //Debug.Log(image);
         image.color = backgroundColor;
 
         float time = 0;
@@ -319,6 +353,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
     }
 
+    /// <summary>
+    /// Coroutine to display the level text.
+    /// </summary>
     private IEnumerator DisplayLevelText()
     {
         StartCoroutine(Fade(0f, 1f, 0f, Color.black));
@@ -330,6 +367,12 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         yield return StartCoroutine(Fade(1f, 0f, 3f, Color.black));
     }
 
+    /// <summary>
+    /// Coroutine to display a message text.
+    /// </summary>
+    /// <param name="message">The message to display.</param>
+    /// <param name="color">The color of the message text.</param>
+    /// <param name="displayTime">The duration to display the message.</param>
     private IEnumerator DisplayMessageText(string message, Color color, float displayTime)
     {
         gameMessageText.SetText(message);
@@ -356,6 +399,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         gameMessageText.SetText("");
     }
 
+    /// <summary>
+    /// Pauses or resumes the game.
+    /// </summary>
     public void PauseGame()
     {
         if (gameState != GameState.gamePaused)
@@ -365,9 +411,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
             previousGameState = gameState;
             gameState = GameState.gamePaused;
-
         }
-
         else if (gameState == GameState.gamePaused)
         {
             player.playerControl.EnablePlayer();
@@ -377,34 +421,54 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         }
     }
 
+    /// <summary>
+    /// Restarts the game by reloading the current scene.
+    /// </summary>
     private void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    /// <summary>
+    /// Sets the player's name in the UI.
+    /// </summary>
     private void SetPlayerName()
     {
         playerName.text = GameResources.Instance.currentPlayerSO.playerName;
     }
 
+    /// <summary>
+    /// Gets the current room.
+    /// </summary>
+    /// <returns>The current room.</returns>
     public Room GetCurrentRoom()
     {
-        
         return currentRoom;
     }
 
+    /// <summary>
+    /// Sets the current room.
+    /// </summary>
+    /// <param name="room">The room to set as the current room.</param>
     public void SetCurrentRoom(Room room)
     {
         previousRoom = currentRoom;
         currentRoom = room;
-
     }
 
+    /// <summary>
+    /// Gets the player.
+    /// </summary>
+    /// <returns>The player.</returns>
     public Player GetPlayer()
     {
         return player;
     }
 
+    /// <summary>
+    /// Gets the current dungeon level.
+    /// </summary>
+    /// <returns>The current dungeon level.</returns>
     public DungeonLevelSO GetCurrentDungeonLevel()
     {
         return dungeonLevelList[currentDungeonLevelListIndex];

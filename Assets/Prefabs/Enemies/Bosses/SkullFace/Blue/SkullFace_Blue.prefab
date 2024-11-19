@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 1562709184473822189, guid: 953e28fbee804504998ad2b248f8435b, type: 3}
       propertyPath: enemySound
       value: 
-      objectReference: {fileID: 11400000, guid: 72d0773b9fde17d47b812ace72934103, type: 2}
+      objectReference: {fileID: 11400000, guid: f468bf1bde906cd489075f132e80f18f, type: 2}
     - target: {fileID: 1562709184473822189, guid: 953e28fbee804504998ad2b248f8435b, type: 3}
       propertyPath: enemyDetails
       value: 

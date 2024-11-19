@@ -19,20 +19,10 @@ public class MovementDetailsSO : ScriptableObject
     #endregion Tooltip
     public float maxMoveSpeed = 8f;
 
-    //#region Tooltip
-    //[Tooltip("Roll speed")]
-    //#endregion
-    //public float rollSpeed;
-
-    //#region Tooltip
-    //[Tooltip("Roll distance")]
-    //#endregion
-    //public float rollDistance;
-    //#region Tooltip
-    //[Tooltip("Roll cooldown")]
-    //#endregion
-    //public float rollCooldownTime;
-
+    /// <summary>
+    /// Gets a random move speed between the minimum and maximum values.ss
+    /// </summary>
+    /// <returns></returns>
     public float GetMoveSpeed()
     {
         if (minMoveSpeed == maxMoveSpeed)
@@ -45,22 +35,15 @@ public class MovementDetailsSO : ScriptableObject
         }
     }
 
-//    #region Validation
-//#if UNITY_EDITOR
-//    private void OnValidate()
-//    {
-//        HelperUtilities.ValidateCheckPositiveRange(this, nameof(minMoveSpeed), minMoveSpeed, nameof(maxMoveSpeed), maxMoveSpeed, false);
+    #region Validation
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckPositiveRange(this, nameof(minMoveSpeed), minMoveSpeed, nameof(maxMoveSpeed), maxMoveSpeed, false);
+    }
 
-//        if (rollSpeed != 0 || rollDistance != 0f || rollCooldownTime != 0f)
-//        {
-//            HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollSpeed), rollSpeed, false);
-//            HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollDistance), rollDistance, false);
-//            HelperUtilities.ValidateCheckPositiveValue(this, nameof(rollCooldownTime), rollCooldownTime, false);
-//        }
-//    }
-
-//#endif
-//    #endregion
+#endif
+    #endregion
 
 }
 

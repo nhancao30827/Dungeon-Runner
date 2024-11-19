@@ -19,6 +19,12 @@ public class RoomNodeSO : ScriptableObject
     [HideInInspector] public bool isLeftClickDragging = false;
     [HideInInspector] public bool isSelected = false;
 
+    /// <summary>
+    /// Initializes the room node with the specified parameters.
+    /// </summary>
+    /// <param name="rect">The rectangle defining the node's position and size.</param>
+    /// <param name="nodeGraph">The node graph to which this node belongs.</param>
+    /// <param name="roomNodeType">The type of the room node.</param>
     public void Initialise(Rect rect, RoomNodeGraphSO nodeGraph, RoomNodeTypeSO roomNodeType)
     {
         this.rect = rect;
@@ -30,6 +36,10 @@ public class RoomNodeSO : ScriptableObject
         roomNodeTypeList = GameResources.Instance.roomNodeTypeList;
     }
 
+    /// <summary>
+    /// Draws the room node using the specified GUI style.
+    /// </summary>
+    /// <param name="nodeStyle">The GUI style to use for drawing the node.</param>
     public void Draw(GUIStyle nodeStyle)
     {
         GUILayout.BeginArea(rect, nodeStyle);
@@ -46,55 +56,76 @@ public class RoomNodeSO : ScriptableObject
 
             roomNodeType = roomNodeTypeList.list[selection];
 
-            // If the room type selection has changed child connections potentially invalid
-            if (roomNodeTypeList.list[selected].isCorridor && !roomNodeTypeList.list[selection].isCorridor ||
-               !roomNodeTypeList.list[selected].isCorridor && roomNodeTypeList.list[selection].isCorridor ||
-               !roomNodeTypeList.list[selected].isBossRoom && roomNodeTypeList.list[selection].isBossRoom
-            )
+            // If the room type selection has changed, child connections may be invalid
+            if (HasRoomTypeChanged(selected, selection))
             {
-
-                if (childRoomNodeIDList.Count > 0)
-                {
-                    for (int i = childRoomNodeIDList.Count - 1; i >= 0; i--)
-                    {
-                        RoomNodeSO childRoomNode = roomNodeGraph.GetRoomNode(childRoomNodeIDList[i]);
-
-                        if (childRoomNode != null)
-                        {
-                            RemoveChildRoomNodeIDFromRoomNode(childRoomNode.id);
-
-                            childRoomNode.RemoveParentRoomNodeIDFromRoomNode(id);
-                        }
-                    }
-                }
+                RemoveInvalidChildConnections();
             }
-
         }
-
 
         if (EditorGUI.EndChangeCheck())
         {
             EditorUtility.SetDirty(this);
         }
         GUILayout.EndArea();
-
     }
 
+    /// <summary>
+    /// Determines if the room type has changed in a way that affects child connections.
+    /// </summary>
+    /// <param name="selected">The previously selected room type index.</param>
+    /// <param name="selection">The newly selected room type index.</param>
+    /// <returns>True if the room type change affects child connections; otherwise, false.</returns>
+    private bool HasRoomTypeChanged(int selected, int selection)
+    {
+        return (roomNodeTypeList.list[selected].isCorridor && !roomNodeTypeList.list[selection].isCorridor) ||
+               (!roomNodeTypeList.list[selected].isCorridor && roomNodeTypeList.list[selection].isCorridor) ||
+               (!roomNodeTypeList.list[selected].isBossRoom && roomNodeTypeList.list[selection].isBossRoom);
+    }
+
+    /// <summary>
+    /// Removes invalid child connections based on the current room type.
+    /// </summary>
+    private void RemoveInvalidChildConnections()
+    {
+        if (childRoomNodeIDList.Count > 0)
+        {
+            for (int i = childRoomNodeIDList.Count - 1; i >= 0; i--)
+            {
+                RoomNodeSO childRoomNode = roomNodeGraph.GetRoomNode(childRoomNodeIDList[i]);
+
+                if (childRoomNode != null)
+                {
+                    RemoveChildRoomNodeIDFromRoomNode(childRoomNode.id);
+                    childRoomNode.RemoveParentRoomNodeIDFromRoomNode(id);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Gets the room node types to display in the editor.
+    /// </summary>
+    /// <returns>An array of room node type names to display.</returns>
     public string[] GetRoomNodeTypesToDisplay()
     {
-        string[] roomArray = new string[roomNodeTypeList.list.Count];
+        List<string> roomArray = new List<string>();
 
         for (int i = 0; i < roomNodeTypeList.list.Count; i++)
         {
             if (roomNodeTypeList.list[i].displayInNodeGraphEditor)
             {
-                roomArray[i] = roomNodeTypeList.list[i].roomNodeTypeName;
+                roomArray.Add(roomNodeTypeList.list[i].roomNodeTypeName);
             }
         }
 
-        return roomArray;
+        return roomArray.ToArray();
     }
 
+    /// <summary>
+    /// Processes the current event for the room node.
+    /// </summary>
+    /// <param name="currentEvent">The current event.</param>
     public void ProcessEvents(Event currentEvent)
     {
         switch (currentEvent.type)
@@ -113,6 +144,10 @@ public class RoomNodeSO : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Processes a mouse down event.
+    /// </summary>
+    /// <param name="currentEvent">The current event.</param>
     private void ProcessMouseDownEvent(Event currentEvent)
     {
         if (currentEvent.button == 0)
@@ -125,19 +160,29 @@ public class RoomNodeSO : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Processes a left mouse button down event.
+    /// </summary>
     private void ProcessLeftClickDownEvent()
     {
         // Highlight the selected node in the inspector
         Selection.activeObject = this;
-
         isSelected = !isSelected;
     }
 
+    /// <summary>
+    /// Processes a right mouse button down event.
+    /// </summary>
+    /// <param name="currentEvent">The current event.</param>
     private void ProcessRightClickDownEvent(Event currentEvent)
     {
         roomNodeGraph.SetNodeToDrawConnectionLineFrom(this, currentEvent.mousePosition);
     }
 
+    /// <summary>
+    /// Processes a mouse up event.
+    /// </summary>
+    /// <param name="currentEvent">The current event.</param>
     private void ProcessMouseUpEvent(Event currentEvent)
     {
         if (currentEvent.button == 0)
@@ -146,6 +191,9 @@ public class RoomNodeSO : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Processes a left mouse button up event.
+    /// </summary>
     private void ProcessLeftClickUpEvent()
     {
         if (isLeftClickDragging)
@@ -154,6 +202,10 @@ public class RoomNodeSO : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Processes a mouse drag event.
+    /// </summary>
+    /// <param name="currentEvent">The current event.</param>
     private void ProcessMouseDragEvent(Event currentEvent)
     {
         if (currentEvent.button == 0)
@@ -162,20 +214,32 @@ public class RoomNodeSO : ScriptableObject
         }
     }
 
+    /// <summary>
+    /// Processes a left mouse button drag event.
+    /// </summary>
+    /// <param name="currentEvent">The current event.</param>
     private void ProcessLeftClickDragEvent(Event currentEvent)
     {
         isLeftClickDragging = true;
-
         DragNode(currentEvent.delta);
         GUI.changed = true;
     }
 
+    /// <summary>
+    /// Drags the node by the specified delta.
+    /// </summary>
+    /// <param name="delta">The amount to drag the node.</param>
     public void DragNode(Vector2 delta)
     {
         rect.position += delta;
         EditorUtility.SetDirty(this);
     }
 
+    /// <summary>
+    /// Adds a child room node ID to this room node.
+    /// </summary>
+    /// <param name="childID">The child room node ID.</param>
+    /// <returns>True if the child room node ID was added; otherwise, false.</returns>
     public bool AddChildRoomNodeIDToRoomNode(string childID)
     {
         RoomNodeSO childNode = roomNodeGraph.GetRoomNode(childID);
@@ -194,6 +258,11 @@ public class RoomNodeSO : ScriptableObject
         return false;
     }
 
+    /// <summary>
+    /// Determines if the specified child room node ID is valid.
+    /// </summary>
+    /// <param name="childID">The child room node ID.</param>
+    /// <returns>True if the child room node ID is valid; otherwise, false.</returns>
     public bool IsChildRoomValid(string childID)
     {
         RoomNodeSO childNode = roomNodeGraph.GetRoomNode(childID);
@@ -213,6 +282,12 @@ public class RoomNodeSO : ScriptableObject
         return true;
     }
 
+    /// <summary>
+    /// Determines if the specified child node is invalid.
+    /// </summary>
+    /// <param name="childNode">The child node.</param>
+    /// <param name="childID">The child node ID.</param>
+    /// <returns>True if the child node is invalid; otherwise, false.</returns>
     private bool IsInvalidChildNode(RoomNodeSO childNode, string childID)
     {
         return childNode == null ||
@@ -227,18 +302,32 @@ public class RoomNodeSO : ScriptableObject
                (!childNode.roomNodeType.isCorridor && childRoomNodeIDList.Count > 0);
     }
 
-
+    /// <summary>
+    /// Adds a parent room node ID to this room node.
+    /// </summary>
+    /// <param name="parentID">The parent room node ID.</param>
+    /// <returns>True if the parent room node ID was added; otherwise, false.</returns>
     public bool AddParentRoomNodeIDToRoomNode(string parentID)
     {
         parentRoomNodeIDList.Add(parentID);
         return true;
     }
 
+    /// <summary>
+    /// Removes a child room node ID from this room node.
+    /// </summary>
+    /// <param name="childID">The child room node ID.</param>
+    /// <returns>True if the child room node ID was removed; otherwise, false.</returns>
     public bool RemoveChildRoomNodeIDFromRoomNode(string childID)
     {
         return childRoomNodeIDList.Remove(childID);
     }
 
+    /// <summary>
+    /// Removes a parent room node ID from this room node.
+    /// </summary>
+    /// <param name="parentID">The parent room node ID.</param>
+    /// <returns>True if the parent room node ID was removed; otherwise, false.</returns>
     public bool RemoveParentRoomNodeIDFromRoomNode(string parentID)
     {
         return parentRoomNodeIDList.Remove(parentID);

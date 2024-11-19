@@ -35,19 +35,14 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
     /// <param name="roomChangedEventArgs">The event arguments containing the new room information.</param>
     private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs roomChangedEventArgs)
     {
-        enemiesSpawedSoFar = 0;
-        currentEnemyCount = 0;
+        ResetEnemyCounts();
 
         currentRoom = roomChangedEventArgs.room;
 
-        if (currentRoom.roomNodeType.isCorridorEW || currentRoom.roomNodeType.isCorridorNS || currentRoom.roomNodeType.isEntrance)
+        if (IsNonCombatRoom(currentRoom) || currentRoom.isClearedOfEnemies)
             return;
 
-        if (currentRoom.isClearedOfEnemies) return;
-
-        DungeonLevelSO currentDungeonLevel = GameManager.Instance.GetCurrentDungeonLevel();
-        enemiesToSpawn = currentRoom.GetNumberOfEnemiesToSpawn(currentDungeonLevel);
-        roomEnemySpawnParameters = currentRoom.GetRoomEnemySpawnParameters(currentDungeonLevel);
+        InitializeRoomEnemyParameters();
 
         if (enemiesToSpawn == 0)
         {
@@ -55,6 +50,43 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
             return;
         }
 
+        PrepareRoomForCombat();
+    }
+
+    /// <summary>
+    /// Resets the enemy counts for the current room.
+    /// </summary>
+    private void ResetEnemyCounts()
+    {
+        enemiesSpawedSoFar = 0;
+        currentEnemyCount = 0;
+    }
+
+    /// <summary>
+    /// Determines if the specified room is a non-combat room.
+    /// </summary>
+    /// <param name="room">The room to check.</param>
+    /// <returns>True if the room is a corridor or entrance; otherwise, false.</returns>
+    private bool IsNonCombatRoom(Room room)
+    {
+        return room.roomNodeType.isCorridorEW || room.roomNodeType.isCorridorNS || room.roomNodeType.isEntrance;
+    }
+
+    /// <summary>
+    /// Initializes the parameters for spawning enemies in the current room.
+    /// </summary>
+    private void InitializeRoomEnemyParameters()
+    {
+        DungeonLevelSO currentDungeonLevel = GameManager.Instance.GetCurrentDungeonLevel();
+        enemiesToSpawn = currentRoom.GetNumberOfEnemiesToSpawn(currentDungeonLevel);
+        roomEnemySpawnParameters = currentRoom.GetRoomEnemySpawnParameters(currentDungeonLevel);
+    }
+
+    /// <summary>
+    /// Prepares the room for combat by locking doors and starting enemy spawn.
+    /// </summary>
+    private void PrepareRoomForCombat()
+    {
         enemyMaxConcurrentSpawnNumber = GetConcurrentEnemies();
         currentRoom.instantiatedRoom.LockDoors();
         SpawnEnemies();

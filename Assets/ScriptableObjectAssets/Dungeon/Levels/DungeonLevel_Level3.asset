@@ -49,4 +49,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1355031816c257f42be407978beb841a, type: 2}
   - {fileID: 11400000, guid: 3524a14eff9a0f34c8f75ea5293ae894, type: 2}
   - {fileID: 11400000, guid: a4bd5209602bfe84e8659fb188589dd7, type: 2}
-  timeLimit: 500
+  timeLimit: 650
